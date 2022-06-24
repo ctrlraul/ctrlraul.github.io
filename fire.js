@@ -39,10 +39,6 @@ function init () {
 
 function update (canvas, pixels, frame) {
 
-  if (frame % 3 !== 0) {
-    return;
-  }
-
   const decay = 0.05;
   const windForce = 1;
 

@@ -11,7 +11,21 @@
 
 </head>
 <body>
+
   <canvas></canvas>
+
+  <div id="info">
+    <div id="update-time"></div>
+    <div id="render-time"></div>
+    <div id="range-container">
+      Wind: <input type="range" id="wind-range" min="-100" max="100" value="25">
+    </div>
+    <div id="range-container">
+      Delay: <input type="range" id="delay-range" min="0" max="31" value="2">
+    </div>
+  </div>
+
   <script src="fire.js"></script>
+
 </body>
 </html>

@@ -1,10 +1,14 @@
-html, body { height: 100% }
+html {
+  height: 100%;
+}
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
   margin: 0;
+  width: 100%;
+  height: 100%;
   background-color: #000000;
 }
 
@@ -15,4 +19,21 @@ canvas {
   object-fit: contain;
   width: 100%;
   transform: scaleY(-1);
+  filter: hue-rotate(335deg);
+  -webkit-filter: hue-rotate(335deg);
+}
+
+#info {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 20px;
+  color: #cccccc;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 80%;
+}
+
+#range-container {
+  display: flex;
+  align-items: center;
 }

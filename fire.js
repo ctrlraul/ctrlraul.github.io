@@ -3,17 +3,18 @@
 
 class Timer {
 
-  history = new Array(16).fill(0)
-  startTime = 0
+  history = new Array(16).fill(0);
+  startTime = 0;
 
   start () {
-    this.startTime = performance.now()
+    this.startTime = performance.now();
   }
 
   stop () {
-    this.history.push(performance.now() - this.startTime)
-    this.history.shift()
-    return this.history.reduce((x, y) => x + y, 0) / this.history.length
+    this.history.push(performance.now() - this.startTime);
+    this.history.shift();
+    this.time = this.history.reduce((x, y) => x + y, 0) / this.history.length;
+    return this.time;
   }
 
 }
@@ -25,6 +26,7 @@ function init () {
   const ctx = canvas.getContext('2d');
 
   const info = document.getElementById('info');
+  const fps = document.getElementById('fps');
   const updateTime = document.getElementById('update-time');
   const renderTime = document.getElementById('render-time');
   const windRange = document.getElementById('wind-range');
@@ -71,11 +73,17 @@ function init () {
 
     updateTimer.start();
     update(canvas, pixels, decay, wind);
-    updateTime.textContent = 'Update: ' + updateTimer.stop().toFixed(1) + 'ms';
+    updateTimer.stop();
   
     renderTimer.start();
     render(canvas, ctx, pixels);
-    renderTime.textContent = 'Render: ' + renderTimer.stop().toFixed(1) + 'ms';
+    renderTimer.stop();
+
+    if (frame % 8 == 0) {
+      fps.textContent = 'FPS: ' + (1000 / (updateTimer.time + renderTimer.time)).toFixed(1);
+      updateTime.textContent = `Update: ${updateTimer.time.toFixed(1)} ms`;
+      renderTime.textContent = `Render: ${renderTimer.time.toFixed(1)} ms`;
+    }
 
   };
 

@@ -62,11 +62,11 @@ a::selection {
 
 .link-line {
 	display: flex;
-    width: 17em;
+    width: 16em;
 	gap: 0.5em;
 }
 
 .link-line > b {
-	width: 5em;
+	width: 4em;
 	text-align: right;
 }

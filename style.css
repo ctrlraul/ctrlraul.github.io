@@ -1,39 +1,60 @@
-html {
-  height: 100%;
+:root {
+	background-color: #161616;
+	font-family: "Quicksand", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 500;
+	font-style: normal;
+	color: aliceblue;
+	font-size: larger;
+}
+
+html,
+body {
+	height: 100%;
 }
 
 body {
-  position: fixed;
-  left: 0;
-  top: 0;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000000;
+	margin: 0;
 }
 
 canvas {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  object-fit: contain;
-  width: 100%;
-  transform: scaleY(-1);
-  filter: hue-rotate(335deg);
-  -webkit-filter: hue-rotate(335deg);
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	object-fit: contain;
+	width: 100%;
+	transform: scaleY(-1);
+	pointer-events: none;
+	mix-blend-mode: plus-lighter;
 }
 
 #info {
-  position: absolute;
-  left: 0;
-  top: 0;
-  margin: 20px;
-  color: #cccccc;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 80%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	margin: 1rem;
 }
 
-#range-container {
-  display: flex;
-  align-items: center;
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 50%;
+}
+
+a {
+	color: rgb(224 78 41);
+	text-decoration: none;
+}
+
+.link-line {
+	display: flex;
+    width: 17em;
+	gap: 0.5em;
+}
+
+.link-line > b {
+	width: 5em;
+	text-align: right;
 }

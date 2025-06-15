@@ -1,11 +1,19 @@
 :root {
-	background-color: #161616;
+	--foreground: aliceblue;
+	--background: #161616;
+	--accent: rgb(224 78 41);
+
+	background-color: var(--background);
+	color: var(--foreground);
 	font-family: "Quicksand", sans-serif;
 	font-optical-sizing: auto;
 	font-weight: 500;
 	font-style: normal;
-	color: aliceblue;
 	font-size: larger;
+}
+
+::selection {
+	background: var(--accent);
 }
 
 html,
@@ -44,8 +52,12 @@ canvas {
 }
 
 a {
-	color: rgb(224 78 41);
+	color: var(--accent);
 	text-decoration: none;
+}
+
+a::selection {
+	background: var(--foreground);
 }
 
 .link-line {

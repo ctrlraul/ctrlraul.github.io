@@ -14,6 +14,8 @@ const tickInterval = 2;
 
 let decay = 0;
 let wind = 0;
+let windVelocity = 0;
+let lastMouseX = 0
 
 
 init();
@@ -35,8 +37,8 @@ function init()
 
 function adjustToWindowSize()
 {
-	canvas.width = Math.min(canvasSizeMax, Math.round(window.innerWidth / 4));
-	canvas.height = Math.min(canvasSizeMax, Math.round(window.innerHeight / 8));
+	canvas.width = Math.round(window.innerWidth / 6);
+	canvas.height = Math.round(window.innerHeight / 8);
 
 	// Add/Remove pixels
 	const oldLength = pixels.length;
@@ -73,6 +75,11 @@ function tick()
 	render(canvas, ctx, pixels);
 	renderTimer.stop();
 
+	// Wind decay
+	wind += windVelocity;
+	windVelocity *= 0;
+	wind *= 0.92;
+
 	if (frame % 60 == 0)
 	{
 		infoElement.textContent = [
@@ -85,7 +92,8 @@ function tick()
 
 function adjustWind(event)
 {
-	wind = event.pageX / window.innerWidth * 2 - 1;
+	windVelocity += event.movementX * 15;
+	lastMouseX = event.pageX / window.innerWidth * canvas.width;
 }
 
 function disableAntialiasing(canvas, ctx)
@@ -111,17 +119,19 @@ function update(canvas, pixels, decay, wind)
 		if (pixels[upperIndex] !== undefined)
 		{
 			const spread = Math.random() * 2 - 1;
-			const foo = 0.3 + (y / canvas.height) * 0.7;
-			const windForce = Math.round(spread + wind * foo * 3);
-			pixels[upperIndex + windForce] = Math.max(0, pixel - decay * Math.random());
+			const mouseInfluence = Math.pow((1 - Math.abs(x - lastMouseX) / canvas.width), 3);
+			const windInfluence = (0.3 + (y / canvas.height) * 0.7) * (mouseInfluence / 1000);
+			const windForce = Math.round(spread + wind * windInfluence * 2.5);
+			const localDecay = decay * Math.random() * (1.7 - mouseInfluence);
+			pixels[upperIndex + windForce] = Math.max(0, pixel - localDecay);
 		}
 	
-		if (Math.random() < pixel / 4)
+		if (Math.random() < pixel / 3)
 		{
 			const upperUpperIndex = x + (y + 2) * canvas.width;
 
 			if (pixels[upperUpperIndex] !== undefined)
-				pixels[upperUpperIndex] = Math.min(1, pixels[upperUpperIndex] + decay)
+				pixels[upperUpperIndex] = Math.pow(pixels[upperUpperIndex], 0.75)
 		}
 	}
 }
